@@ -72,11 +72,11 @@ query queryOrders {
 ``` 
 ## 3. gRPC
 
-# Para testar o serviço gRPC, utilize o Evans CLI:
+### Para testar o serviço gRPC, utilize o Evans CLI:
 ``` 
 evans -r repl
 ``` 
-# Dentro do Evans, siga os passos:
+### Dentro do Evans, siga os passos:
 
 - Selecionar o serviço ListOrders:
 ``` 
@@ -88,7 +88,7 @@ service ListOrders
 call ListOrders
 ``` 
 
-### Portas dos Serviços
+## Portas dos Serviços
 
 - **REST API:** 8000
 
