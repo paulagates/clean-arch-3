@@ -35,8 +35,16 @@ docker-compose up
 Após subir o banco de dados, execute as migrações para criar as tabelas necessárias:
 ``` 
 migrate -path=sql/migrations -database "mysql://root:root@tcp(localhost:3306)/orders" up
+```
+### Passo 3: Rodar a aplicação
+É necessário adentrar na main devido ao tools.go
 ``` 
-### Passo 3: Cadastrar uma Order
+cd \cmd\ordersystem\
+```
+```
+go run .
+``` 
+### Passo 4: Cadastrar uma Order
 
 Utilize o arquivo api.http para realizar a requisição de criação de uma order. Exemplo:
 ``` 
@@ -49,7 +57,7 @@ Content-Type: application/json
     "tax": 0.5
 }
 ``` 
-### Passo 4: Listar Orders
+### Passo 5: Listar Orders
 
 Você pode listar as orders utilizando uma das três interfaces disponíveis:
 
