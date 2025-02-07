@@ -8,4 +8,5 @@ import "github.com/paulagates/clean-arch-3/internal/usecase"
 
 type Resolver struct {
 	CreateOrderUseCase usecase.CreateOrderUseCase
+	ListOrdersUseCase  usecase.ListOrdersUseCase
 }

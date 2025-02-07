@@ -13,17 +13,21 @@ type WebOrderHandler struct {
 	EventDispatcher   events.EventDispatcherInterface
 	OrderRepository   entity.OrderRepositoryInterface
 	OrderCreatedEvent events.EventInterface
+	OrdersListedEvent events.EventInterface
 }
 
 func NewWebOrderHandler(
 	EventDispatcher events.EventDispatcherInterface,
 	OrderRepository entity.OrderRepositoryInterface,
 	OrderCreatedEvent events.EventInterface,
+	OrdersListedEvent events.EventInterface,
+
 ) *WebOrderHandler {
 	return &WebOrderHandler{
 		EventDispatcher:   EventDispatcher,
 		OrderRepository:   OrderRepository,
 		OrderCreatedEvent: OrderCreatedEvent,
+		OrdersListedEvent: OrdersListedEvent,
 	}
 }
 
@@ -49,7 +53,7 @@ func (h *WebOrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *WebOrderHandler) List(w http.ResponseWriter, r *http.Request) {
-	listOrders := usecase.NewListOrdersUseCase(h.OrderRepository, h.OrderCreatedEvent, h.EventDispatcher)
+	listOrders := usecase.NewListOrdersUseCase(h.OrderRepository, h.OrdersListedEvent, h.EventDispatcher)
 	output, err := listOrders.Execute()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

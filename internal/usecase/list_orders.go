@@ -17,12 +17,12 @@ type ListOrdersUseCase struct {
 
 func NewListOrdersUseCase(
 	OrderRepository entity.OrderRepositoryInterface,
-	OrderCreated events.EventInterface,
+	OrdersListed events.EventInterface,
 	EventDispatcher events.EventDispatcherInterface,
 ) *ListOrdersUseCase {
 	return &ListOrdersUseCase{
 		OrderRepository: OrderRepository,
-		OrdersListed:    OrderCreated,
+		OrdersListed:    OrdersListed,
 		EventDispatcher: EventDispatcher,
 	}
 }

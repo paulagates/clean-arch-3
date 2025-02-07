@@ -51,11 +51,11 @@ func (r *OrderRepository) FindAll() ([]*entity.Order, error) {
 	return orders, nil
 }
 
-func (r *OrderRepository) GetTotal() (int, error) {
-	var total int
-	err := r.Db.QueryRow("Select count(*) from orders").Scan(&total)
-	if err != nil {
-		return 0, err
-	}
-	return total, nil
-}
+// func (r *OrderRepository) GetTotal() (int, error) {
+// 	var total int
+// 	err := r.Db.QueryRow("Select count(*) from orders").Scan(&total)
+// 	if err != nil {
+// 		return 0, err
+// 	}
+// 	return total, nil
+// }

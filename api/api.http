@@ -28,3 +28,7 @@ Content-Type: application/json
     "price": 50.0,
     "tax": 0.2
 }
+
+### Listar pedidos
+GET http://localhost:8000/order
+
