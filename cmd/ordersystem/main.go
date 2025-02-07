@@ -6,7 +6,6 @@ import (
 	"net"
 	"net/http"
 
-	graphql_handler "github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/paulagates/clean-arch-3/configs"
 	"github.com/paulagates/clean-arch-3/internal/event/handler"
@@ -15,7 +14,9 @@ import (
 	"github.com/paulagates/clean-arch-3/internal/infra/grpc/service"
 	"github.com/paulagates/clean-arch-3/internal/infra/web/webserver"
 	"github.com/paulagates/clean-arch-3/pkg/events"
+	_ "github.com/paulagates/clean-arch-3/pkg/events"
 	"github.com/streadway/amqp"
+	_ "github.com/streadway/amqp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
@@ -43,6 +44,7 @@ func main() {
 	})
 
 	createOrderUseCase := NewCreateOrderUseCase(db, eventDispatcher)
+	listOrderUseCase := NewListedOrdersUseCase(db, eventDispatcher)
 
 	webserver := webserver.NewWebServer(configs.WebServerPort)
 	webOrderHandler := NewWebOrderHandler(db, eventDispatcher)
@@ -52,7 +54,7 @@ func main() {
 	go webserver.Start()
 
 	grpcServer := grpc.NewServer()
-	createOrderService := service.NewOrderService(*createOrderUseCase)
+	createOrderService := service.NewOrderService(*createOrderUseCase, *listOrderUseCase)
 	pb.RegisterOrderServiceServer(grpcServer, createOrderService)
 	reflection.Register(grpcServer)
 
@@ -64,7 +66,7 @@ func main() {
 	go grpcServer.Serve(lis)
 
 	srv := graphql_handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
-		CreateOrderUseCase: *createOrderUseCase,
+		CreateOrderUseCase: *createOrderUseCase, ListOrderUseCase: *listOrderUseCase,
 	}}))
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

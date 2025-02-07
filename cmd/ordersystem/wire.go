@@ -6,13 +6,13 @@ package main
 import (
 	"database/sql"
 
-	"github.com/devfullcycle/20-CleanArch/internal/entity"
-	"github.com/devfullcycle/20-CleanArch/internal/event"
-	"github.com/devfullcycle/20-CleanArch/internal/infra/database"
-	"github.com/devfullcycle/20-CleanArch/internal/infra/web"
-	"github.com/devfullcycle/20-CleanArch/internal/usecase"
-	"github.com/devfullcycle/20-CleanArch/pkg/events"
 	"github.com/google/wire"
+	"github.com/paulagates/clean-arch-3/internal/entity"
+	"github.com/paulagates/clean-arch-3/internal/event"
+	"github.com/paulagates/clean-arch-3/internal/infra/database"
+	"github.com/paulagates/clean-arch-3/internal/infra/web"
+	"github.com/paulagates/clean-arch-3/internal/usecase"
+	"github.com/paulagates/clean-arch-3/pkg/events"
 )
 
 var setOrderRepositoryDependency = wire.NewSet(
@@ -23,13 +23,20 @@ var setOrderRepositoryDependency = wire.NewSet(
 var setEventDispatcherDependency = wire.NewSet(
 	events.NewEventDispatcher,
 	event.NewOrderCreated,
-	wire.Bind(new(events.EventInterface), new(*event.OrderCreated)),
+	event.NewOrdersListed,
 	wire.Bind(new(events.EventDispatcherInterface), new(*events.EventDispatcher)),
+	wire.Bind(new(events.EventInterface), new(*event.OrderCreated)),
+	wire.Bind(new(events.EventInterface), new(*event.OrdersListed)),
 )
 
 var setOrderCreatedEvent = wire.NewSet(
 	event.NewOrderCreated,
 	wire.Bind(new(events.EventInterface), new(*event.OrderCreated)),
+)
+
+var setOrdersListedEvent = wire.NewSet(
+	event.NewOrdersListed,
+	wire.Bind(new(events.EventInterface), new(*event.OrdersListed)),
 )
 
 func NewCreateOrderUseCase(db *sql.DB, eventDispatcher events.EventDispatcherInterface) *usecase.CreateOrderUseCase {
@@ -41,6 +48,14 @@ func NewCreateOrderUseCase(db *sql.DB, eventDispatcher events.EventDispatcherInt
 	return &usecase.CreateOrderUseCase{}
 }
 
+func NewListedOrdersUseCase(db *sql.DB, eventDispatcher events.EventDispatcherInterface) *usecase.ListOrdersUseCase {
+	wire.Build(
+		setOrderRepositoryDependency,
+		setOrdersListedEvent,
+		usecase.NewListOrdersUseCase,
+	)
+	return &usecase.ListOrdersUseCase{}
+}
 func NewWebOrderHandler(db *sql.DB, eventDispatcher events.EventDispatcherInterface) *web.WebOrderHandler {
 	wire.Build(
 		setOrderRepositoryDependency,
