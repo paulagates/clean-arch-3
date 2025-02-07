@@ -44,8 +44,9 @@ POST http://localhost:8080/order
 Content-Type: application/json
 
 {
-  "price": 100.50,
-  "tax": 10.05
+    "id": "a",
+    "price": 100.5,
+    "tax": 0.5
 }
 ``` 
 ### Passo 4: Listar Orders
