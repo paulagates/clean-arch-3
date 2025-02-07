@@ -1,4 +1,4 @@
-# Clean Architecture Challenge - Order Management System
+# Order Management System
 
 Este projeto é um desafio de implementação de uma aplicação seguindo os princípios da Clean Architecture. A aplicação consiste em um sistema de gerenciamento de pedidos (orders) que expõe três tipos de interfaces para listar pedidos: REST, gRPC e GraphQL. Além disso, o projeto utiliza Docker para facilitar a configuração do ambiente de desenvolvimento.
 
