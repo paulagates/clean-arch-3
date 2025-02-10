@@ -1,6 +1,11 @@
 package configs
 
-import "github.com/spf13/viper"
+import (
+	"log"
+
+	"github.com/joho/godotenv"
+	"github.com/spf13/viper"
+)
 
 type conf struct {
 	DBDriver          string `mapstructure:"DB_DRIVER"`
@@ -15,20 +20,22 @@ type conf struct {
 	RabbitMQURL       string `mapstructure:"RABBITMQ_URL"`
 }
 
-func LoadConfig(path string) (*conf, error) {
-	var cfg *conf
-	viper.SetConfigName("app_config")
-	viper.SetConfigType("env")
-	viper.AddConfigPath(path)
-	viper.SetConfigFile(".env")
+func LoadConfig() (*conf, error) {
+	// Carregar variáveis do arquivo .env
+	if err := godotenv.Load(); err != nil {
+		log.Println("Aviso: Não foi possível carregar o arquivo .env, usando variáveis do sistema.")
+	}
+
+	var cfg conf
+
+	// Configurar o Viper para ler variáveis do ambiente
 	viper.AutomaticEnv()
-	err := viper.ReadInConfig()
+
+	// Deserializar para a struct
+	err := viper.Unmarshal(&cfg)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	err = viper.Unmarshal(&cfg)
-	if err != nil {
-		panic(err)
-	}
-	return cfg, err
+
+	return &cfg, nil
 }

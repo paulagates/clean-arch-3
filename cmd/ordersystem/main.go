@@ -24,7 +24,7 @@ import (
 )
 
 func main() {
-	configs, err := configs.LoadConfig(".")
+	configs, err := configs.LoadConfig()
 	if err != nil {
 		panic(err)
 	}
