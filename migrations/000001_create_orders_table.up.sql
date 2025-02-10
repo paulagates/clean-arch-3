@@ -1,8 +1,7 @@
-CREATE TABLE
-    orders (
-        id varchar(255) NOT NULL,
-        price float NOT NULL,
-        tax float NOT NULL,
-        final_price float NOT NULL,
-        PRIMARY KEY (id)
-    );
+create table orders (
+   id          varchar(255) not null,
+   price       float not null,
+   tax         float not null,
+   final_price float not null,
+   primary key ( id )
+);
