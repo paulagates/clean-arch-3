@@ -28,15 +28,9 @@ Este projeto é um desafio de implementação de uma aplicação seguindo os pri
 
 Para iniciar o ambiente de desenvolvimento, execute o seguinte comando:
 
-docker-compose up
+docker-compose up -d
 
-### Passo 2: Executar as Migrações
-
-Após subir o banco de dados, execute as migrações para criar as tabelas necessárias:
-``` 
-migrate -path=sql/migrations -database "mysql://root:root@tcp(localhost:3306)/orders" up
-```
-### Passo 3: Rodar a aplicação
+### Passo 2: Rodar a aplicação
 É necessário adentrar na main devido ao tools.go
 ``` 
 cd \cmd\ordersystem\
@@ -44,7 +38,7 @@ cd \cmd\ordersystem\
 ```
 go run .
 ``` 
-### Passo 4: Cadastrar uma Order
+### Passo 3: Cadastrar uma Order
 
 Utilize o arquivo api.http para realizar a requisição de criação de uma order. Exemplo:
 ``` 
@@ -57,7 +51,7 @@ Content-Type: application/json
     "tax": 0.5
 }
 ``` 
-### Passo 5: Listar Orders
+### Passo 4: Listar Orders
 
 Você pode listar as orders utilizando uma das três interfaces disponíveis:
 
