@@ -33,7 +33,7 @@ docker-compose up -d
 ### Passo 2: Rodar a aplicação
 É necessário adentrar na main devido ao tools.go
 ``` 
-cd \cmd\ordersystem\
+cd cmd/ordersystem
 ```
 ```
 go run .
