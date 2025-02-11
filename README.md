@@ -28,7 +28,7 @@ Este projeto é um desafio de implementação de uma aplicação seguindo os pri
 
 Para iniciar o ambiente de desenvolvimento, execute o seguinte comando:
 
-docker-compose up -d
+docker-compose up --build -d
 
 ### Passo 2: Cadastrar uma Order
 
