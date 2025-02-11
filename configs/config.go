@@ -3,7 +3,6 @@ package configs
 import (
 	"log"
 
-	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 )
 
@@ -21,18 +20,19 @@ type conf struct {
 }
 
 func LoadConfig() (*conf, error) {
-	// Carregar variáveis do arquivo .env
-	if err := godotenv.Load(); err != nil {
-		log.Println("Aviso: Não foi possível carregar o arquivo .env, usando variáveis do sistema.")
-	}
-
 	var cfg conf
 
-	// Configurar o Viper para ler variáveis do ambiente
-	viper.AutomaticEnv()
+	viper.SetConfigFile(".env") // Define o arquivo manualmente
+	viper.SetConfigType("env")  // Garante que seja tratado como .env
+	viper.AutomaticEnv()        // Lê variáveis de ambiente
 
-	// Deserializar para a struct
-	err := viper.Unmarshal(&cfg)
+	err := viper.ReadInConfig() // Lê o arquivo .env
+	if err != nil {
+		log.Println("Erro ao carregar .env:", err) // Log para depuração
+		return nil, err
+	}
+
+	err = viper.Unmarshal(&cfg) // Mapeia as variáveis para a struct
 	if err != nil {
 		return nil, err
 	}

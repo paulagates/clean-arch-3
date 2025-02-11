@@ -38,7 +38,6 @@ func (h *WebOrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
 	createOrder := usecase.NewCreateOrderUseCase(h.OrderRepository, h.OrderCreatedEvent, h.EventDispatcher)
 	output, err := createOrder.Execute(dto)
 	if err != nil {
