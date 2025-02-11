@@ -30,15 +30,7 @@ Para iniciar o ambiente de desenvolvimento, execute o seguinte comando:
 
 docker-compose up -d
 
-### Passo 2: Rodar a aplicação
-É necessário adentrar na main devido ao tools.go
-``` 
-cd cmd/ordersystem
-```
-```
-go run .
-``` 
-### Passo 3: Cadastrar uma Order
+### Passo 2: Cadastrar uma Order
 
 Utilize o arquivo api.http para realizar a requisição de criação de uma order. Exemplo:
 ``` 
@@ -51,7 +43,7 @@ Content-Type: application/json
     "tax": 0.5
 }
 ``` 
-### Passo 4: Listar Orders
+### Passo 3: Listar Orders
 
 Você pode listar as orders utilizando uma das três interfaces disponíveis:
 
