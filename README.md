@@ -79,10 +79,13 @@ query queryOrders {
 evans -r repl
 ``` 
 ### Dentro do Evans, siga os passos:
-
-- Selecionar o serviço ListOrders:
+- Selecionar o package:
+```
+package pb
 ``` 
-service ListOrders
+- Selecionar o serviço OrderService:
+``` 
+service OrderService
 ``` 
 
 - Chamar o método ListOrders:
