@@ -27,9 +27,9 @@ Este projeto é um desafio de implementação de uma aplicação seguindo os pri
 ### Passo 1: Subir o Ambiente com Docker
 
 Para iniciar o ambiente de desenvolvimento, execute o seguinte comando:
-
+``` 
 docker-compose up --build -d
-
+``` 
 ### Passo 2: Cadastrar uma Order
 
 Utilize o arquivo api.http para realizar a requisição de criação de uma order. Exemplo:
